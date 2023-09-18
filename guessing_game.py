@@ -11,60 +11,53 @@ import statistics
 guess_list = []
 
 
-def authy(new_guess, new_answer):
-    if new_guess > new_answer:
-        print("too high")
-    elif new_guess < new_answer:
-        print("too low")
+def stats(stats_of_guess):
+    print("=+Overall statistics+=")
+    print(f"mean : {round(statistics.mean(stats_of_guess))}")
+    print(f"mode: {statistics.mode(stats_of_guess)}")
+    print(f"median: {statistics.median(stats_of_guess)}")
 
 
 def guesses(new_guess):
     guess_list.append(new_guess)
-    print(guess_list)
 
 
 def start_game():
-    print("Welcome to the guessing game")
+    high_score = 0
+    print("Welcome to **Guess** **That** **Number**")
+    print("Guess a number between 1 and 100")
     answer = random.randint(1, 100)
     print(answer)
     while True:
         try:
-            guess = int(input("Enter a number: "))
-            if guess < 1 or guess > 100:
-                raise ValueError("Enter a number between 1 and 100")
+            guess = int(input("Enter your guess: "))
+            if guess > 100 or guess < 1:
+                raise ValueError("Try entering  a number between 1 and 100")
         except ValueError as err:
-            print(f'Please enter a valid number. {err}')
-
+            print(f"{err}")
         else:
-            authy(guess, answer)
-            if guess == answer:
-                print("You won")
+            guesses(guess)
+            if guess < answer:
+                print("Too low. Try again")
+            elif guess > answer:
+                print("Too high. Try again")
+            elif guess == answer:
+                print("You got it")
                 break
 
-    play_again = input("Do you want to play again: y/n? ").lower()
+    attempts = len(guess_list)
+    high_score = attempts
+    print(f"Way to go, you guessed it in {attempts} tries")
+    stats(guess_list)
+    play_again = input("Would you like to play again? [y/n]? ").lower()
     if play_again == "y":
+        print(f"can you beat the high score of {high_score}")
+        guess_list.clear()
         start_game()
     else:
-        print("Good bye, hope you enjoyed the game")
+        print("Closing the game! Thanks for playing")
 
 
 start_game()
 
-#   3. Continuously prompt the player for a guess.
-#     a. If the guess is greater than the solution, display to the player "It's lower".
-#     b. If the guess is less than the solution, display to the player "It's higher".
 
-#   4. Once the guess is correct, stop looping, inform the user they "Got it" and store the number of guesses it took in a list.
-#   5. Display the following data to the player
-#     a. How many attempts it took them to get the correct number in this game
-#     b. The mean of the saved attempts list
-#     c. The median of the saved attempts list
-#     d. The mode of the saved attempts list
-#   6. Prompt the player to play again
-#     a. If they decide to play again, start the game loop over.
-#     b. If they decide to quit, show them a goodbye message.
-
-# ( You can add more features/enhancements if you'd like to. )
-
-
-# Kick off the program by calling the start_game function.
