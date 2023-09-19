@@ -27,7 +27,6 @@ def start_game():
     print("Welcome to **Guess** **That** **Number**")
     print("Guess a number between 1 and 100")
     answer = random.randint(1, 100)
-    print(answer)
     while True:
         try:
             guess = int(input("Enter your guess: "))
