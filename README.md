@@ -1,4 +1,4 @@
-# Tech-degree-project-3
+# Tech-degree-project-1
  A guessing game made with python
  This game allows a user to guess a number between 1 - 100
  if the user guess a number outside the range, an exception is handled
